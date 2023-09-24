@@ -11,7 +11,134 @@
   <script>
     // in develop branch
     // START JS
+   
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // Mutasi
+    function mutasi() {
+      let startDate = prompt(`Masukkan tanggal awal (yyyy-mm-dd) :`)
+      let endDate = prompt(`Masukkan tanggal akhir (yyyy-mm-dd) :`)
+
+      if (startDate && endDate) {
+                let filteredData = data.filter(data => {
+                    return data.date >= startDate && data.date <= endDate;
+                });
+
+                if (filteredData.length > 0) {
+                    let message = "Transaksi dalam rentang tanggal tersebut:\n\n";
+                    for (let i = 0; i < filteredData.length; i++) {
+                        message += `ID : ${filteredData[i].id}\n`;
+                        message += `Tipe : ${filteredData[i].type}\n`;
+                        message += `Nominal : ${filteredData[i].nominal.toLocaleString("id", {style: "currency", currency:"IDR"})}\n`;
+                        message += `Catatan : ${filteredData[i].note}\n`;
+                        message += `Tanggal : ${filteredData[i].date}\n\n`;
+                    }
+                    alert(message);
+                } else {
+                    alert("Tidak ada transaksi dalam rentang tanggal tersebut.");
+                }
+            } else {
+                alert("Input tanggal tidak valid. Silakan coba lagi.");
+            }
+    }
+
+    // Update data
+    function updateData() {
+      let idUpdate = Number(prompt(`Masukkan ID data yang ingin diperbarui :`));
+      let found = false;
+
+      for (let i = 0; i < data.length; i++) {
+          if (data[i].id === idUpdate) {
+              found = true;
+              let newNominal = Number(prompt(`Nominal lama : ${data[i].nominal.toLocaleString("id", {style: "currency", currency:"IDR"})}\nMasukkan nominal baru :`));
+              let newNote = prompt(`Berita lama : ${data[i].note}\nMasukkan berita baru :`);
+              let newDate = prompt(`Tanggal lama : ${data[i].date}\nMasukkan tanggal baru :`);
+
+              if (!isNaN(newNominal) && newNote && newDate) {
+                  data[i].nominal = newNominal;
+                  data[i].note = newNote;
+                  data[i].date = newDate;
+                  alert("Data berhasil diperbarui");
+              } else {
+                  alert("Input tidak valid. Coba lagi.");
+              }
+              break; 
+          }
+      }
+      if (!found) {
+          alert("Data tidak ditemukan.");
+      }
+    }
+
+    // Hapus Data
+    function deleteData() {
+      let idDelete = Number(prompt(`Masukkan ID data yang ingin dihapus :`));
+      let index = -1;
+
+      for (let i = 0; i < data.length; i++) {
+        if (data[i].id === idDelete) {
+          index = i;
+          break;
+        }
+      }
+      if (index !== -1) {
+        data.splice(index, 1);
+        alert(`Data berhasil dihapus`)
+      } else {
+        alert(`Data tidak ditemukan`)
+      }
+    }
   </script>
 </body>
 </html>
