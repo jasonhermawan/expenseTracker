@@ -179,61 +179,59 @@
   <script>
     // in develop branch
     // START JS
-   
+    
+   // Array untuk menyimpan semua data transaksi
+    let data = [];
 
+    // Add Data
+    function addData() {
+      let id = data.length + 1;
+      let type = prompt(`Masukan jenis transaksi (Income / Expense) :`);
+      if (type.toLowerCase() == "income" || type.toLowerCase() == "expense") {
+        let nominal = Number(prompt("Masukkan nominal transaksi :"));
+        if (!isNaN(nominal)) {
+          let note = prompt("Masukkan catatan transaksi :");
+          let date = prompt("Masukkan tanggal transaksi (yyyy-mm-dd) :");
+          data.push({id, type, nominal, note, date})
+          alert(`Data berhasil ditambahkan.`)
+        } else {
+          alert(`Mohon masukkan angka.`);
+        }
+      } else {
+        alert(`Input tidak valid. Coba lagi.`);
+      }
+    }
 
+    // Show Data
+    function showData() {
+      let output = `Data transaksi :\n\n`;
+      if (data.length === 0) {
+        output = "Belum ada data"
+      } else {
+        for (let i = 0; i < data.length; i++) {
+        output += `ID : ${data[i].id}\n`;
+        output += `Tipe : ${data[i].type}\n`;
+        output += `Nominal : ${(data[i].nominal).toLocaleString("id", {style: "currency", currency:"IDR"})}\n`;
+        output += `Catatan : ${data[i].note}\n`;
+        output += `Tanggal : ${data[i].date}\n\n`;
+      }
+      }
+      alert(output)
+    }
 
+    // Show Saldo
+    function checkSaldo() {
+      let saldo = 0;
+      for (let i = 0; i < data.length; i++) {
+        if (data[i].type == "income") {
+          saldo += data[i].nominal;
+        } else if (data[i].type == "expense") {
+          saldo -= data[i].nominal;
+        }
+      }
+      alert(`Sisa saldo anda : ${saldo.toLocaleString("id", {style: "currency", currency:"IDR"})}`)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    // Mutasi
+       // Mutasi
     function mutasi() {
       let startDate = prompt(`Masukkan tanggal awal (yyyy-mm-dd) :`)
       let endDate = prompt(`Masukkan tanggal akhir (yyyy-mm-dd) :`)
@@ -306,6 +304,8 @@
       } else {
         alert(`Data tidak ditemukan`)
       }
+
+    
     }
   </script>
 </body>
